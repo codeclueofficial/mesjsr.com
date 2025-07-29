@@ -56,7 +56,7 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <Button asChild className="btn-primary hidden sm:flex items-center space-x-2">
+            <Button asChild className="btn-primary hidden sm:flex items-center space-x-2 text-white">
               <Link
                 href="https://wa.me/919608888383?text=Hello%20MITAN%20Engitech%20Services%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services."
                 target="_blank"
@@ -90,7 +90,7 @@ export default function Header() {
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] mobile-nav-overlay">
                 <div className="flex flex-col space-y-6 mt-6">
                   <div className="flex items-center justify-center">
                     <div className="relative h-12 w-32">
@@ -111,7 +111,7 @@ export default function Header() {
                   </nav>
 
                   <div className="space-y-3 pt-6 border-t">
-                    <Button asChild className="w-full btn-primary">
+                    <Button asChild className="w-full btn-primary text-white">
                       <Link
                         href="https://wa.me/919608888383?text=Hello%20MITAN%20Engitech%20Services%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services."
                         target="_blank"

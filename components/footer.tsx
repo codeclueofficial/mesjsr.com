@@ -112,9 +112,9 @@ export default function Footer() {
 
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left space-y-4 md:space-y-0">
-            <p className="text-gray-400 text-sm">&copy; 2025 MITAN Engitech Services. All rights reserved.</p>
+            <p className="footer-text text-gray-400">&copy; 2025 MITAN Engitech Services. All rights reserved.</p>
 
-            <div className="text-gray-400 text-sm">
+            <div className="footer-text text-gray-400">
               Made with <span className="text-red-500">❤️</span> by{" "}
               <Link
                 href="https://codeclue.in"

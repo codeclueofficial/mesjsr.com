@@ -16,6 +16,11 @@ export const metadata: Metadata = {
     "Jamshedpur's premier provider of electrical engineering, IT services, digital marketing, minerals supply, and taxation solutions.",
   keywords: "electrical engineering, IT services, digital marketing, taxation, Jamshedpur, Jharkhand",
   authors: [{ name: "MITAN Engitech Services" }],
+  icons: {
+    icon: "/assets/images/favicon.png",
+    shortcut: "/assets/images/favicon.png",
+    apple: "/assets/images/favicon.png",
+  },
   openGraph: {
     title: "MITAN Engitech Services",
     description: "Engineering Excellence, Digital Innovation, Financial Precision",
@@ -34,6 +39,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
+        <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/assets/images/favicon.png" />
+      </head>
       <body className={`${poppins.variable} font-sans antialiased`}>
         {children}
 
