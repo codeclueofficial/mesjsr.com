@@ -83,7 +83,7 @@ export default function Services() {
           {services.map((service, index) => (
             <Card
               key={service.id}
-              className="service-card group hover:shadow-2xl border-0 overflow-hidden"
+              className="service-card group hover:shadow-2xl card-rounded overflow-hidden"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <CardHeader className="pb-4">
@@ -109,10 +109,7 @@ export default function Services() {
                   ))}
                 </ul>
 
-                <Button
-                  variant="ghost"
-                  className="w-full group-hover:bg-primary group-hover:text-white transition-all mt-4"
-                >
+                <Button variant="ghost" className="w-full service-learn-btn mt-4">
                   Learn More
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>

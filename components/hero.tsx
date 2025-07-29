@@ -48,7 +48,7 @@ export default function Hero() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button asChild size="lg" className="btn-primary group">
                 <Link href="#contact">
-                  Get Started Today
+                  <span className="text-white">Get Started Today</span>
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
@@ -56,7 +56,7 @@ export default function Hero() {
               <Button asChild variant="outline" size="lg" className="btn-secondary group bg-transparent">
                 <Link href="#services">
                   <Play className="mr-2 h-4 w-4" />
-                  Explore Services
+                  <span className="group-hover:text-white">Explore Services</span>
                 </Link>
               </Button>
             </div>

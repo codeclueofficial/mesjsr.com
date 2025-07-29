@@ -36,7 +36,7 @@ export default function About() {
             </div>
 
             {/* Founder Profile */}
-            <Card className="border-l-4 border-l-primary">
+            <Card className="card-rounded shadow-sm">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="relative h-16 w-16">
@@ -74,7 +74,7 @@ export default function About() {
           </div>
 
           <div className="space-y-6">
-            <Card className="glass-effect">
+            <Card className="glass-effect card-rounded">
               <CardContent className="p-8">
                 <h3 className="text-xl font-bold text-gray-900 mb-6">Why Choose MITAN Engitech?</h3>
 
@@ -82,7 +82,7 @@ export default function About() {
                   {features.map((feature, index) => (
                     <div key={index} className="flex items-start space-x-4">
                       <div className="flex-shrink-0 mt-1">
-                        <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-primary/10 text-primary">
+                        <div className="flex items-center justify-center h-10 w-10 icon-rounded bg-primary/10 text-primary">
                           <feature.icon className="h-5 w-5" />
                         </div>
                       </div>

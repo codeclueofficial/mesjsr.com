@@ -199,10 +199,10 @@ export default function Contact() {
           {/* Contact Information */}
           <div className="space-y-8">
             {contactInfo.map((info, index) => (
-              <Card key={index} className="border-l-4 border-l-primary">
+              <Card key={index} className="contact-card shadow-sm">
                 <CardContent className="p-6">
                   <div className="flex items-start space-x-4">
-                    <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 text-primary flex-shrink-0">
+                    <div className="flex items-center justify-center h-12 w-12 icon-rounded bg-primary/10 text-primary flex-shrink-0">
                       <info.icon className="h-6 w-6" />
                     </div>
                     <div className="flex-1">
@@ -229,7 +229,7 @@ export default function Contact() {
             ))}
 
             {/* Business Hours */}
-            <Card className="bg-primary text-white">
+            <Card className="bg-primary text-white card-rounded">
               <CardContent className="p-6">
                 <div className="flex items-center space-x-4">
                   <Clock className="h-8 w-8" />
@@ -244,7 +244,7 @@ export default function Contact() {
           </div>
 
           {/* Contact Form */}
-          <Card className="glass-effect">
+          <Card className="glass-effect card-rounded">
             <CardHeader>
               <CardTitle className="text-xl font-bold text-gray-900">Send Us a Message</CardTitle>
             </CardHeader>
@@ -274,6 +274,7 @@ export default function Contact() {
                       placeholder="Enter your full name"
                       required
                       disabled={isSubmitting}
+                      className="contact-input"
                     />
                   </div>
                   <div className="space-y-2">
@@ -286,6 +287,7 @@ export default function Contact() {
                       placeholder="+91 XXXXX XXXXX"
                       required
                       disabled={isSubmitting}
+                      className="contact-input"
                     />
                   </div>
                 </div>
@@ -300,6 +302,7 @@ export default function Contact() {
                     placeholder="your.email@example.com"
                     required
                     disabled={isSubmitting}
+                    className="contact-input"
                   />
                 </div>
 
@@ -310,15 +313,15 @@ export default function Contact() {
                     value={formData.service}
                     disabled={isSubmitting}
                   >
-                    <SelectTrigger className="bg-white border-gray-300 text-gray-900">
+                    <SelectTrigger className="contact-input bg-white text-gray-900">
                       <SelectValue placeholder="Select a service" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white border border-gray-200 shadow-lg">
+                    <SelectContent className="bg-white border border-gray-200 shadow-lg rounded-lg">
                       {Object.keys(serviceOptions).map((service) => (
                         <SelectItem
                           key={service}
                           value={service}
-                          className="text-gray-900 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer"
+                          className="text-gray-900 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer rounded-md"
                         >
                           {service}
                         </SelectItem>
@@ -335,15 +338,15 @@ export default function Contact() {
                       value={formData.subService}
                       disabled={isSubmitting}
                     >
-                      <SelectTrigger className="bg-white border-gray-300 text-gray-900">
+                      <SelectTrigger className="contact-input bg-white text-gray-900">
                         <SelectValue placeholder="Select a sub-service (optional)" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white border border-gray-200 shadow-lg">
+                      <SelectContent className="bg-white border border-gray-200 shadow-lg rounded-lg">
                         {getSubServices().map((subService) => (
                           <SelectItem
                             key={subService}
                             value={subService}
-                            className="text-gray-900 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer"
+                            className="text-gray-900 hover:bg-gray-100 focus:bg-gray-100 cursor-pointer rounded-md"
                           >
                             {subService}
                           </SelectItem>
@@ -363,6 +366,7 @@ export default function Contact() {
                     rows={4}
                     required
                     disabled={isSubmitting}
+                    className="contact-input"
                   />
                 </div>
 
@@ -370,33 +374,32 @@ export default function Contact() {
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Sending Message...
+                      <span className="text-white">Sending Message...</span>
                     </>
                   ) : (
-                    "Send Message"
+                    <span className="text-white">Send Message</span>
                   )}
                 </Button>
               </form>
             </CardContent>
           </Card>
         </div>
+      </div>
 
-        {/* Map Section */}
-        <div className="mt-16">
-          <Card className="overflow-hidden">
-            <div className="h-96 bg-gray-200 flex items-center justify-center">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117763.31720677498!2d86.1304564!3d22.8045665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f5e31989f0e2b5%3A0xeeec8e81ce9b344!2sJamshedpur%2C%20Jharkhand!5e0!3m2!1sen!2sin!4v1626787217895!5m2!1sen!2sin"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                className="rounded-lg"
-              />
-            </div>
-          </Card>
+      {/* Map Section - Full Width */}
+      <div className="w-full mt-16">
+        <div className="map-container">
+          <div className="h-96 bg-gray-200 flex items-center justify-center">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117763.31720677498!2d86.1304564!3d22.8045665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f5e31989f0e2b5%3A0xeeec8e81ce9b344!2sJamshedpur%2C%20Jharkhand!5e0!3m2!1sen!2sin!4v1626787217895!5m2!1sen!2sin"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
         </div>
       </div>
     </section>

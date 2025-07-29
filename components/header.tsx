@@ -35,8 +35,8 @@ export default function Header() {
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
-          <Link href="#home" className="flex items-center space-x-2 group">
-            <div className="relative h-12 w-32 sm:h-14 sm:w-36 transition-transform group-hover:scale-105">
+          <Link href="#home" className="flex items-center space-x-2 logo-container">
+            <div className="relative h-12 w-32 sm:h-14 sm:w-36">
               <Image src="/assets/images/logo.png" alt="MITAN Engitech Logo" fill className="object-contain" />
             </div>
           </Link>
@@ -56,23 +56,18 @@ export default function Header() {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <Button asChild className="btn-primary hidden sm:flex items-center space-x-2">
+            <Button asChild className="header-chat-btn hidden sm:flex items-center space-x-2">
               <Link
                 href="https://wa.me/919608888383?text=Hello%20MITAN%20Engitech%20Services%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services."
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <MessageCircle className="h-4 w-4" />
-                <span className="hidden lg:inline">Chat Now</span>
+                <span className="hidden lg:inline text-white">Chat Now</span>
               </Link>
             </Button>
 
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="hidden sm:flex bg-white border-primary text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-200"
-            >
+            <Button asChild variant="outline" size="sm" className="header-call-btn hidden sm:flex bg-transparent">
               <Link href="tel:+919608888383">
                 <Phone className="h-4 w-4 mr-2" />
                 Call
@@ -90,7 +85,7 @@ export default function Header() {
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+              <SheetContent side="right" className="w-[300px] sm:w-[400px] mobile-nav-bg">
                 <div className="flex flex-col space-y-6 mt-6">
                   <div className="flex items-center justify-center">
                     <div className="relative h-12 w-32">
@@ -103,7 +98,7 @@ export default function Header() {
                       <Link
                         key={item.name}
                         href={item.href}
-                        className="text-lg font-medium text-gray-700 hover:text-primary transition-colors"
+                        className="text-lg font-medium mobile-nav-text hover:text-primary transition-colors"
                       >
                         {item.name}
                       </Link>
@@ -111,20 +106,16 @@ export default function Header() {
                   </nav>
 
                   <div className="space-y-3 pt-6 border-t">
-                    <Button asChild className="w-full btn-primary">
+                    <Button asChild className="w-full mobile-chat-btn">
                       <Link
                         href="https://wa.me/919608888383?text=Hello%20MITAN%20Engitech%20Services%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services."
                         target="_blank"
                       >
                         <MessageCircle className="h-4 w-4 mr-2" />
-                        Chat on WhatsApp
+                        <span className="text-white">Chat on WhatsApp</span>
                       </Link>
                     </Button>
-                    <Button
-                      asChild
-                      variant="outline"
-                      className="w-full bg-white border-primary text-primary hover:bg-primary hover:text-white"
-                    >
+                    <Button asChild variant="outline" className="w-full mobile-call-btn bg-transparent">
                       <Link href="tel:+919608888383">
                         <Phone className="h-4 w-4 mr-2" />
                         Call Now

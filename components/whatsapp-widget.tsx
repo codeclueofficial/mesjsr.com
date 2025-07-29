@@ -65,7 +65,7 @@ export default function WhatsAppWidget({
             <div className="flex items-center">
               <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-3 p-1">
                 <Image
-                  src="/assets/images/logo.png"
+                  src="/mitan-icon.png"
                   alt="MITAN Engitech Services"
                   width={32}
                   height={32}
@@ -125,7 +125,7 @@ export default function WhatsAppWidget({
           <div className="p-4 border-t border-gray-100">
             <Button
               onClick={handleWhatsAppClick}
-              className="w-full bg-green-500 hover:bg-green-600 text-white flex items-center justify-center gap-2 py-5"
+              className="w-full bg-green-500 hover:bg-green-600 text-white flex items-center justify-center gap-2 py-5 rounded-lg"
             >
               <MessageSquare size={18} />
               Chat with us
