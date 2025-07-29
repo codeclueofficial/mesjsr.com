@@ -29,18 +29,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Log environment variables for debugging (remove in production)
-    console.log("Environment check:", {
-      hasHost: !!process.env.SMTP_HOST,
-      hasUser: !!process.env.SMTP_USER,
-      hasPass: !!process.env.SMTP_PASS,
-      hasReceiver: !!process.env.RECEIVER_EMAIL,
-      host: process.env.SMTP_HOST,
-      port: process.env.SMTP_PORT,
-      user: process.env.SMTP_USER,
-      receiver: process.env.RECEIVER_EMAIL,
-    })
-
     // Validate environment variables
     if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS || !process.env.RECEIVER_EMAIL) {
       console.error("Missing required environment variables")
@@ -53,15 +41,34 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Create transporter with multiple configuration attempts
-    let transporter
+    // Hostinger SMTP Configuration
+    const transporter = nodemailer.createTransporter({
+      host: "smtp.hostinger.com",
+      port: 587,
+      secure: false, // Use STARTTLS
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+      tls: {
+        rejectUnauthorized: false,
+      },
+      debug: false, // Set to true for debugging
+      logger: false, // Set to true for debugging
+    })
 
-    // Try primary configuration (Hostinger)
+    // Test the connection
     try {
-      transporter = nodemailer.createTransporter({
-        host: process.env.SMTP_HOST,
-        port: Number.parseInt(process.env.SMTP_PORT || "465"),
-        secure: true,
+      await transporter.verify()
+      console.log("SMTP connection verified successfully")
+    } catch (verifyError) {
+      console.error("SMTP verification failed:", verifyError)
+
+      // Try alternative configuration
+      const altTransporter = nodemailer.createTransporter({
+        host: "smtp.hostinger.com",
+        port: 465,
+        secure: true, // Use SSL
         auth: {
           user: process.env.SMTP_USER,
           pass: process.env.SMTP_PASS,
@@ -69,42 +76,17 @@ export async function POST(request: NextRequest) {
         tls: {
           rejectUnauthorized: false,
         },
-        debug: true, // Enable debug logs
-        logger: true, // Enable logger
       })
 
-      // Test the connection
-      await transporter.verify()
-      console.log("SMTP connection verified successfully")
-    } catch (smtpError) {
-      console.error("Primary SMTP configuration failed:", smtpError)
-
-      // Try alternative configuration (less secure but more compatible)
       try {
-        transporter = nodemailer.createTransporter({
-          host: process.env.SMTP_HOST,
-          port: 587, // Try port 587
-          secure: false,
-          auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASS,
-          },
-          tls: {
-            rejectUnauthorized: false,
-            ciphers: "SSLv3",
-          },
-          requireTLS: true,
-          debug: true,
-          logger: true,
-        })
-
-        await transporter.verify()
+        await altTransporter.verify()
         console.log("Alternative SMTP connection verified successfully")
-      } catch (altSmtpError) {
-        console.error("Alternative SMTP configuration also failed:", altSmtpError)
+        // Use the alternative transporter
+        Object.assign(transporter, altTransporter)
+      } catch (altError) {
+        console.error("Both SMTP configurations failed:", altError)
 
-        // If SMTP fails, create a simple email notification system
-        // This will at least log the form submission
+        // Log the form data for manual processing
         const formData = {
           name,
           email,
@@ -113,17 +95,19 @@ export async function POST(request: NextRequest) {
           subService,
           message,
           timestamp: new Date().toISOString(),
+          smtpError: verifyError instanceof Error ? verifyError.message : "SMTP verification failed",
         }
 
         console.log("FORM SUBMISSION (SMTP FAILED):", JSON.stringify(formData, null, 2))
 
-        // Return success but indicate email service issue
-        return NextResponse.json({
-          success: true,
-          message:
-            "Your message has been received! Due to email service maintenance, we'll contact you directly at the provided phone number within 24 hours.",
-          fallback: true,
-        })
+        return NextResponse.json(
+          {
+            success: false,
+            message:
+              "Email service is currently unavailable. Please contact us directly at +91 96088 88383 or info@mesjsr.com",
+          },
+          { status: 500 },
+        )
       }
     }
 
@@ -277,91 +261,52 @@ export async function POST(request: NextRequest) {
       </html>
     `
 
-    // Create plain text version
-    const textContent = `
-New Contact Form Submission - MITAN Engitech Services
-
-Contact Details:
-================
-Name: ${name}
-Email: ${email}
-Phone: ${phone}
-
-Service Information:
-===================
-Main Service: ${service}
-Sub-Service: ${subService || "Not specified"}
-
-Message:
-========
-${message}
-
----
-Submitted on: ${new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" })} (IST)
-Website: mesjsr.com
-    `
-
     // Email options
     const mailOptions = {
       from: {
-        name: "MITAN Engitech Services",
+        name: "MITAN Engitech Services - Contact Form",
         address: process.env.SMTP_USER,
       },
       to: process.env.RECEIVER_EMAIL,
-      subject: `New Contact Form Submission - ${name}`,
+      subject: `New Contact Form Submission from ${name}`,
       html: htmlContent,
-      text: textContent,
       replyTo: email,
     }
 
-    // Send email with retry logic
-    let emailSent = false
-    let attempts = 0
-    const maxAttempts = 3
+    // Send email
+    try {
+      const info = await transporter.sendMail(mailOptions)
+      console.log("Email sent successfully:", info.messageId)
 
-    while (!emailSent && attempts < maxAttempts) {
-      try {
-        attempts++
-        console.log(`Email sending attempt ${attempts}/${maxAttempts}`)
+      return NextResponse.json({
+        success: true,
+        message: "Your message has been sent successfully! We will get back to you soon.",
+        messageId: info.messageId,
+      })
+    } catch (sendError) {
+      console.error("Failed to send email:", sendError)
 
-        const info = await transporter.sendMail(mailOptions)
-        console.log("Email sent successfully:", info.messageId)
-        emailSent = true
-
-        return NextResponse.json({
-          success: true,
-          message: "Your message has been sent successfully! We will get back to you soon.",
-          messageId: info.messageId,
-        })
-      } catch (sendError) {
-        console.error(`Email sending attempt ${attempts} failed:`, sendError)
-
-        if (attempts >= maxAttempts) {
-          // Log the form data for manual processing
-          const formData = {
-            name,
-            email,
-            phone,
-            service,
-            subService,
-            message,
-            timestamp: new Date().toISOString(),
-            error: sendError instanceof Error ? sendError.message : "Unknown error",
-          }
-
-          console.log("FORM SUBMISSION (EMAIL FAILED):", JSON.stringify(formData, null, 2))
-
-          return NextResponse.json({
-            success: true,
-            message:
-              "Your message has been received! We're experiencing temporary email issues, but we'll contact you directly at the provided phone number within 24 hours.",
-            fallback: true,
-          })
-        }
-
-        // Wait before retry
-        await new Promise((resolve) => setTimeout(resolve, 1000 * attempts))
+      // Log the form data for manual processing
+      const formData = {
+        name,
+        email,
+        phone,
+        service,
+        subService,
+        message,
+        timestamp: new Date().toISOString(),
+        sendError: sendError instanceof Error ? sendError.message : "Email sending failed",
       }
+
+      console.log("FORM SUBMISSION (EMAIL SEND FAILED):", JSON.stringify(formData, null, 2))
+
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Failed to send email. Please contact us directly at +91 96088 88383 or info@mesjsr.com",
+        },
+        { status: 500 },
+      )
     }
   } catch (error) {
     console.error("Unexpected error in contact form:", error)
@@ -369,7 +314,7 @@ Website: mesjsr.com
     return NextResponse.json(
       {
         success: false,
-        message: "An unexpected error occurred. Please try again or contact us directly at +91 96088 88383.",
+        message: "An unexpected error occurred. Please contact us directly at +91 96088 88383.",
         error:
           process.env.NODE_ENV === "development"
             ? error instanceof Error
