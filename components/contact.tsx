@@ -116,13 +116,20 @@ export default function Contact() {
         body: JSON.stringify(formData),
       })
 
+      // Log response for debugging
+      console.log("Response status:", response.status)
+      console.log("Response headers:", response.headers)
+
       // Check if response is JSON
       const contentType = response.headers.get("content-type")
       if (!contentType || !contentType.includes("application/json")) {
+        const textResponse = await response.text()
+        console.error("Non-JSON response:", textResponse)
         throw new Error("Server returned an invalid response. Please try again later.")
       }
 
       const result = await response.json()
+      console.log("Response data:", result)
 
       if (response.ok && result.success) {
         setSubmitStatus("success")
@@ -146,9 +153,9 @@ export default function Contact() {
       let errorMessage = "Failed to send message. Please try again or contact us directly."
 
       if (error instanceof Error) {
-        if (error.message.includes("fetch")) {
+        if (error.message.includes("fetch") || error.message.includes("NetworkError")) {
           errorMessage = "Network error. Please check your connection and try again."
-        } else if (error.message.includes("JSON")) {
+        } else if (error.message.includes("JSON") || error.message.includes("Unexpected token")) {
           errorMessage = "Server error. Please try again later or contact us directly."
         } else {
           errorMessage = error.message
