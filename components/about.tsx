@@ -1,5 +1,4 @@
 import Image from "next/image"
-import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { CheckCircle, Shield, Users, Award } from "lucide-react"
 
@@ -36,15 +35,15 @@ export default function About() {
             </div>
 
             {/* Founder Profile */}
-            <Card className="border-l-4 border-l-primary">
-              <CardContent className="p-6">
+            <div className="card-with-border">
+              <div className="p-6">
                 <div className="flex items-center space-x-4 mb-4">
                   <div className="relative h-16 w-16">
                     <Image
                       src="/assets/images/sonu.png"
                       alt="Sonu Chandra Mahato"
                       fill
-                      className="rounded-full object-cover border-4 border-white shadow-lg ring-2 ring-primary/50"
+                      className="rounded-full object-cover shadow-lg ring-2 ring-primary/50"
                     />
                   </div>
                   <div>
@@ -63,8 +62,8 @@ export default function About() {
                   <span className="font-medium">GST Registered:</span>
                   <span className="text-gray-600">20CNTPM6803M1ZL</span>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             <p className="text-gray-600 leading-relaxed">
               Based in Jamshedpur, Jharkhand, we serve clients across industries with a commitment to quality,
@@ -74,8 +73,8 @@ export default function About() {
           </div>
 
           <div className="space-y-6">
-            <Card className="glass-effect">
-              <CardContent className="p-8">
+            <div className="card-clean">
+              <div className="p-8">
                 <h3 className="text-xl font-bold text-gray-900 mb-6">Why Choose MITAN Engitech?</h3>
 
                 <div className="space-y-6">
@@ -93,8 +92,8 @@ export default function About() {
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </div>
       </div>

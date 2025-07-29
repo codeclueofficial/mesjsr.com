@@ -29,7 +29,7 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={`sticky top-0 z-50 transition-all duration-300 header-clean ${
         isScrolled ? "glass-effect shadow-lg" : "bg-white/90 backdrop-blur-sm shadow-sm"
       }`}
     >
@@ -71,7 +71,8 @@ export default function Header() {
               asChild
               variant="outline"
               size="sm"
-              className="hidden sm:flex bg-white border-primary text-primary hover:bg-primary hover:text-white hover:border-primary transition-all duration-200"
+              className="hidden sm:flex bg-white text-primary hover:bg-primary hover:text-white transition-all duration-200 custom-border"
+              style={{ borderColor: "rgb(34 128 130)" }}
             >
               <Link href="tel:+919608888383">
                 <Phone className="h-4 w-4 mr-2" />
@@ -110,7 +111,7 @@ export default function Header() {
                     ))}
                   </nav>
 
-                  <div className="space-y-3 pt-6 border-t">
+                  <div className="space-y-3 pt-6">
                     <Button asChild className="w-full btn-primary text-white">
                       <Link
                         href="https://wa.me/919608888383?text=Hello%20MITAN%20Engitech%20Services%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services."
@@ -123,7 +124,8 @@ export default function Header() {
                     <Button
                       asChild
                       variant="outline"
-                      className="w-full bg-white border-primary text-primary hover:bg-primary hover:text-white"
+                      className="w-full bg-white text-primary hover:bg-primary hover:text-white custom-border"
+                      style={{ borderColor: "rgb(34 128 130)" }}
                     >
                       <Link href="tel:+919608888383">
                         <Phone className="h-4 w-4 mr-2" />

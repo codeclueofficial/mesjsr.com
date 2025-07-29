@@ -3,7 +3,6 @@
 import type React from "react"
 
 import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -183,7 +182,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="py-20 bg-gray-50">
+    <section id="contact" className="py-20 bg-gray-50 contact-clean">
       <div className="container mx-auto px-6">
         <div className="text-center max-w-2xl mx-auto mb-16">
           <Badge variant="secondary" className="mb-4">
@@ -199,8 +198,8 @@ export default function Contact() {
           {/* Contact Information */}
           <div className="space-y-8">
             {contactInfo.map((info, index) => (
-              <Card key={index} className="border-l-4 border-l-primary">
-                <CardContent className="p-6">
+              <div key={index} className="card-with-border">
+                <div className="p-6">
                   <div className="flex items-start space-x-4">
                     <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-primary/10 text-primary flex-shrink-0">
                       <info.icon className="h-6 w-6" />
@@ -224,13 +223,13 @@ export default function Contact() {
                       </div>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             ))}
 
             {/* Business Hours */}
-            <Card className="bg-primary text-white">
-              <CardContent className="p-6">
+            <div className="bg-primary text-white rounded-lg">
+              <div className="p-6">
                 <div className="flex items-center space-x-4">
                   <Clock className="h-8 w-8" />
                   <div>
@@ -239,25 +238,24 @@ export default function Contact() {
                     <p className="text-primary-100">Sunday: Emergency calls only</p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
 
           {/* Contact Form */}
-          <Card className="glass-effect">
-            <CardHeader>
-              <CardTitle className="text-xl font-bold text-gray-900">Send Us a Message</CardTitle>
-            </CardHeader>
-            <CardContent>
+          <div className="card-clean">
+            <div className="p-6">
+              <h3 className="text-xl font-bold text-gray-900 mb-6">Send Us a Message</h3>
+
               {submitStatus === "success" && (
-                <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center space-x-2">
+                <div className="mb-6 p-4 bg-green-50 rounded-lg flex items-center space-x-2">
                   <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
                   <p className="text-green-800">{statusMessage}</p>
                 </div>
               )}
 
               {submitStatus === "error" && (
-                <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-center space-x-2">
+                <div className="mb-6 p-4 bg-red-50 rounded-lg flex items-center space-x-2">
                   <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0" />
                   <p className="text-red-800">{statusMessage}</p>
                 </div>
@@ -274,6 +272,7 @@ export default function Contact() {
                       placeholder="Enter your full name"
                       required
                       disabled={isSubmitting}
+                      className="custom-border"
                     />
                   </div>
                   <div className="space-y-2">
@@ -286,6 +285,7 @@ export default function Contact() {
                       placeholder="+91 XXXXX XXXXX"
                       required
                       disabled={isSubmitting}
+                      className="custom-border"
                     />
                   </div>
                 </div>
@@ -300,6 +300,7 @@ export default function Contact() {
                     placeholder="your.email@example.com"
                     required
                     disabled={isSubmitting}
+                    className="custom-border"
                   />
                 </div>
 
@@ -310,10 +311,10 @@ export default function Contact() {
                     value={formData.service}
                     disabled={isSubmitting}
                   >
-                    <SelectTrigger className="bg-white border-gray-300 text-gray-900">
+                    <SelectTrigger className="bg-white text-gray-900 custom-border">
                       <SelectValue placeholder="Select a service" />
                     </SelectTrigger>
-                    <SelectContent className="bg-white border border-gray-200 shadow-lg">
+                    <SelectContent className="bg-white shadow-lg">
                       {Object.keys(serviceOptions).map((service) => (
                         <SelectItem
                           key={service}
@@ -335,10 +336,10 @@ export default function Contact() {
                       value={formData.subService}
                       disabled={isSubmitting}
                     >
-                      <SelectTrigger className="bg-white border-gray-300 text-gray-900">
+                      <SelectTrigger className="bg-white text-gray-900 custom-border">
                         <SelectValue placeholder="Select a sub-service (optional)" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white border border-gray-200 shadow-lg">
+                      <SelectContent className="bg-white shadow-lg">
                         {getSubServices().map((subService) => (
                           <SelectItem
                             key={subService}
@@ -363,6 +364,7 @@ export default function Contact() {
                     rows={4}
                     required
                     disabled={isSubmitting}
+                    className="custom-border"
                   />
                 </div>
 
@@ -377,13 +379,13 @@ export default function Contact() {
                   )}
                 </Button>
               </form>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         </div>
 
         {/* Map Section */}
         <div className="mt-16">
-          <Card className="overflow-hidden">
+          <div className="card-clean overflow-hidden">
             <div className="h-96 bg-gray-200 flex items-center justify-center">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d117763.31720677498!2d86.1304564!3d22.8045665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f5e31989f0e2b5%3A0xeeec8e81ce9b344!2sJamshedpur%2C%20Jharkhand!5e0!3m2!1sen!2sin!4v1626787217895!5m2!1sen!2sin"
@@ -396,7 +398,7 @@ export default function Contact() {
                 className="rounded-lg"
               />
             </div>
-          </Card>
+          </div>
         </div>
       </div>
     </section>
