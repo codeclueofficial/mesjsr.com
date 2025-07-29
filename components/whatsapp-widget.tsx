@@ -65,7 +65,7 @@ export default function WhatsAppWidget({
             <div className="flex items-center">
               <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center mr-3 p-1">
                 <Image
-                  src="/assets/images/mitan-icon.png"
+                  src="/assets/images/logo.png"
                   alt="MITAN Engitech Services"
                   width={32}
                   height={32}

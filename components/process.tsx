@@ -55,7 +55,7 @@ export default function Process() {
                 >
                   {/* Content Card */}
                   <div className="w-full md:w-5/12 mb-8 md:mb-0">
-                    <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:-translate-y-1 transition-transform duration-300">
+                    <Card className="service-card bg-white/10 backdrop-blur-sm border-white/20 text-white">
                       <CardContent className="p-6">
                         <div className="flex items-center space-x-4 mb-4">
                           <div className="flex items-center justify-center h-16 w-16 rounded-full bg-white text-primary">

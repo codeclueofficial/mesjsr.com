@@ -7,11 +7,8 @@ export default function CTA() {
     <section className="py-20 bg-primary text-white relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-black/10" />
-      <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse-soft" />
-      <div
-        className="absolute bottom-0 left-0 w-72 h-72 bg-white/5 rounded-full blur-3xl animate-pulse-soft"
-        style={{ animationDelay: "1s" }}
-      />
+      <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-72 h-72 bg-white/5 rounded-full blur-3xl" />
 
       <div className="container mx-auto px-6 text-center relative z-10">
         <div className="max-w-3xl mx-auto space-y-8">
