@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Test primary SMTP configuration (port 587)
-    const transporter1 = nodemailer.createTransporter({
+    const transporter1 = nodemailer.createTransport({
       host: "smtp.hostinger.com",
       port: 587,
       secure: false,
@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
       console.error("Port 587 failed:", error1)
 
       // Test alternative SMTP configuration (port 465)
-      const transporter2 = nodemailer.createTransporter({
+      const transporter2 = nodemailer.createTransport({
         host: "smtp.hostinger.com",
         port: 465,
         secure: true,
