@@ -1,13 +1,13 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Poppins } from "next/font/google"
+import { Inter } from "next/font/google"
 import "./globals.css"
-import WhatsAppWidget from "@/components/whatsapp-widget"
 
-const poppins = Poppins({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
-  variable: "--font-poppins",
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-inter",
+  display: "swap",
 })
 
 export const metadata: Metadata = {
@@ -29,6 +29,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     type: "website",
   },
+  viewport: "width=device-width, initial-scale=1",
     generator: 'v0.dev'
 }
 
@@ -38,22 +39,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={`scroll-smooth ${inter.variable}`}>
       <head>
         <link rel="icon" href="/assets/images/favicon.png" type="image/png" />
         <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png" />
         <link rel="apple-touch-icon" href="/assets/images/favicon.png" />
       </head>
-      <body className={`${poppins.variable} font-sans antialiased`}>
-        {children}
-
-        {/* Global WhatsApp Widget */}
-        <WhatsAppWidget
-          phoneNumber="919608888383"
-          welcomeMessage="Hi there! How can we help you with our engineering, IT, or financial services?"
-          companyName="MITAN Engitech Services"
-        />
-      </body>
+      <body className={`${inter.className} font-sans antialiased`}>{children}</body>
     </html>
   )
 }
